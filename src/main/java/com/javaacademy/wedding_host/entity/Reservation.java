@@ -1,12 +1,12 @@
 package com.javaacademy.wedding_host.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Reservation {
-    private Integer monthNumber;
-    private Integer dayNumber;
-    private Boolean isBooked;
+    private final Integer monthNumber;
+    private final Integer dayNumber;
+    private Boolean isBooked = true;
 }
