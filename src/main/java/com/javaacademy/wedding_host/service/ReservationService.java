@@ -22,11 +22,11 @@ public class ReservationService {
     private final ReservationMapper reservationMapper;
 
     public List<ReservationDto> findAllByMonth(Integer month) {
-        SortedSet<Reservation> set = reservationRepository.findAllByMonth(month);
-        if(set.size() == 0){
+        List<Reservation> list = reservationRepository.findAllByMonth(month);
+        if(list.size() == 0){
             return null;
         }
-        return set.stream().map(reservationMapper::mapToDto).toList();
+        return list.stream().map(reservationMapper::mapToDto).toList();
     }
 
     public void save(ReservationDto reservationDto) {
