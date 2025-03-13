@@ -8,37 +8,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class ReservationStorage {
-    private final Map<Integer, List<Reservation>> data = new HashMap<>();
+    private final Map<Integer, SortedSet<Reservation>> data = new HashMap<>();
 
     /*
     сохранение бронирований
      */
     public void save(Reservation reservation) {
         //проверяем есть ли список броней по данному месяцу
-        List<Reservation> list = data.get(reservation.getMonthNumber());
-        if(list == null) {
-            list = new ArrayList<>();
+        SortedSet<Reservation> set = data.get(reservation.getMonthNumber());
+        if(set == null) {
+            set = new TreeSet<Reservation>();
         }
         //проверяем есть ли уже бронь в этом месяце на этот день
         else if(data.get(reservation.getMonthNumber()).contains(reservation)) {
             throw new RuntimeException("Эта дата уже забронирована");
         }
         //добавить новый элемент в список
-        list.add(reservation);
-        data.put(reservation.getMonthNumber(), list);
+        set.add(reservation);
+        data.put(reservation.getMonthNumber(), set);
     }
 
     /*
     список броней за месяц
     */
-    public List<Reservation> findAllByMonth(Integer month) {
+    public SortedSet<Reservation> findAllByMonth(Integer month) {
         if(data.get(month) == null) {
-            return new ArrayList<>();
+            return new TreeSet<Reservation>();
         }
         else {
             return data.get(month);

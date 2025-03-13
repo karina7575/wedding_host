@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @Component
 @RequiredArgsConstructor
@@ -18,7 +20,7 @@ public class ReservationRepository {
         reservationStorage.save(reservation);
     }
 
-    public List<Reservation> findAllByMonth(Integer month) {
+    public SortedSet<Reservation> findAllByMonth(Integer month) {
         return reservationStorage.findAllByMonth(month);
     }
 
